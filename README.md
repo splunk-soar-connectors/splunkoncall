@@ -2,16 +2,16 @@
 # Splunk On\-Call
 
 Publisher: Splunk  
-Connector Version: 2\.1\.0  
+Connector Version: 2\.1\.1  
 Product Vendor: VictorOps  
 Product Name: VictorOps  
 Product Version Supported (regex): "\.\*"  
-Minimum Product Version: 4\.9\.39220  
+Minimum Product Version: 5\.1\.0  
 
 Formerly known as VictorOps\. This app implements various investigative actions using VictorOps
 
-[comment]: # " File: readme.md"
-[comment]: # "Copyright (c) 2018-2021 Splunk Inc."
+[comment]: # " File: README.md"
+[comment]: # "Copyright (c) 2018-2022 Splunk Inc."
 [comment]: # ""
 [comment]: # "Licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)"
 [comment]: # ""
