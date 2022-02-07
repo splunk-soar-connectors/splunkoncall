@@ -48,6 +48,16 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [list routing](#action-list-routing) - Get list of routing keys and associated teams on VictorOps  
 [update incident](#action-update-incident) - Update timeline of existing incident in VictorOps  
 
+## Port Information
+
+The app uses HTTP/ HTTPS protocol for communicating with the VictorOps server. Below are the
+default ports used by Splunk SOAR.
+
+|         SERVICE NAME | TRANSPORT PROTOCOL | PORT |
+|----------------------|--------------------|------|
+|         http         | tcp                | 80   |
+|         https        | tcp                | 443  |
+
 ## action: 'test connectivity'
 Validate the asset configuration for connectivity using supplied configuration
 
