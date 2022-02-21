@@ -115,54 +115,48 @@
                 {% for data in result.data %}
                 <!--Default View-->
                     <tbody>
-                        <tr>
-                            <td>
-                                {% if data.team.name %}
-                                    {{ data.team.name }}
-                                {% else %}
-                                    None
-                                {% endif %}
-                            </td>
+                        {% if data.oncallNow %}
+                            {% for escalation_details in data.oncallNow %}
+                                <tr>
+                                    {% if forloop.first %}
+                                        <td rowspan="{{ data.oncallNow.list|length}}">
+                                            {% if data.team.name %}
+                                                {{ data.team.name }}
+                                            {% else %}
+                                                None
+                                            {% endif %}
+                                        </td>
+                                    {% endif %}
 
-                            <td>
-                                <table class="wf-table-vertical" style="width: 100%;">
-                                    {% if data.oncallNow %}
-                                        {% for escalation_policy in data.oncallNow %}
-                                            <tr>
-                                                <td>
-                                                    {{escalation_policy.escalationPolicy.name}}
-                                                </td>
-                                            </tr>
+                                    <td>
+                                        {{escalation_details.escalationPolicy.name}}
+                                    </td>
+
+                                    <td class="no-word-wrap">
+                                        {% for user in escalation_details.users %}
+                                            <a class="no-word-wrap" href="javascript:;" onclick="context_menu(this, [{'contains': ['user name'], 'value':'{{user.onCalluser.username}}' }], 0, {{ container.id }}, null, false);">
+                                                {{user.onCalluser.username}}
+                                                &nbsp;
+                                                <span class="fa fa-caret-down" style="font-size: smaller;"></span>
+                                            </a>
+                                            <br>
                                         {% endfor %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td>
+                                    {% if data.team.name %}
+                                        {{ data.team.name }}
                                     {% else %}
                                         None
                                     {% endif %}
-                                </table>
-                            </td>
-
-                            <td>
-                                <table class="wf-table-vertical" style="width: 100%;">
-                                    {% if data.oncallNow %}
-                                        {% for users in data.oncallNow %}
-                                            {% for user in users.users %}
-                                                <tr>
-                                                    <td>
-                                                        <a class="no-word-wrap" href="javascript:;" onclick="context_menu(this, [{'contains': ['user name'], 'value':'{{user.onCalluser.username}}' }], 0, {{ container.id }}, null, false);">
-                                                        {{user.onCalluser.username}}
-                                                        &nbsp;
-                                                        <span class="fa fa-caret-down" style="font-size: smaller;"></span>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                        {% endfor %}
-                                    {% else %}
-                                        None
-                                    {% endif %}
-                                </table>
-                            </td>
-
-                        </tr>
+                                </td>
+                                <td>None</td>
+                                <td>None</td>
+                            </tr>
+                        {% endif %}
                     </tbody>
                 {% endfor %}
             </table>
