@@ -103,48 +103,17 @@
             <h4 class="wf-h4-style">No data found</h4>
 
         {% else %}
-            <table class="wf-table-horizontal datatable">
-                <thead>
-                    <tr>
-                        <th>TEAM NAME</th>
-                        <th>ESCALATION POLICY</th>
-                        <th>USERNAME</th>
-                    </tr>
-                </thead>
-
-                {% for data in result.data %}
-                <!--Default View-->
+            <h4 class="wf-h4-style">List Oncalls Details</h4>
+            <div class="results">
+                <table class="wf-table-horizontal datatable">
+                    <thead>
+                        <tr>
+                            <th>TEAM NAME</th>
+                            <th style="text-align: center;">ESCALATION POLICY DETAILS</th>
+                        </tr>
+                    </thead>
                     <tbody>
-                        {% if data.oncallNow %}
-                            {% for escalation_details in data.oncallNow %}
-                                <tr>
-                                    {% if forloop.first %}
-                                        <td rowspan="{{ data.oncallNow.list|length}}">
-                                            {% if data.team.name %}
-                                                {{ data.team.name }}
-                                            {% else %}
-                                                None
-                                            {% endif %}
-                                        </td>
-                                    {% endif %}
-
-                                    <td>
-                                        {{escalation_details.escalationPolicy.name}}
-                                    </td>
-
-                                    <td class="no-word-wrap">
-                                        {% for user in escalation_details.users %}
-                                            <a class="no-word-wrap" href="javascript:;" onclick="context_menu(this, [{'contains': ['user name'], 'value':'{{user.onCalluser.username}}' }], 0, {{ container.id }}, null, false);">
-                                                {{user.onCalluser.username}}
-                                                &nbsp;
-                                                <span class="fa fa-caret-down" style="font-size: smaller;"></span>
-                                            </a>
-                                            <br>
-                                        {% endfor %}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        {% else %}
+                        {% for data in result.data %}
                             <tr>
                                 <td>
                                     {% if data.team.name %}
@@ -153,13 +122,46 @@
                                         None
                                     {% endif %}
                                 </td>
-                                <td>None</td>
-                                <td>None</td>
+
+                                {% if data.oncallNow %}
+                                    <td>
+                                        <table class="wf-table-horizontal" style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>ESCALATION POLICY</th>
+                                                    <th>USERNAME</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for escalation_details in data.oncallNow %}
+                                                    <tr>
+                                                        <td>{{escalation_details.escalationPolicy.name}}</td>
+                                                        <td class="no-word-wrap">
+                                                            <ul style="padding-left: 15px">
+                                                                {% for user in escalation_details.users %}
+                                                                    <li>
+                                                                        <a class="no-word-wrap" href="javascript:;" onclick="context_menu(this, [{'contains': ['user name'], 'value':'{{user.onCalluser.username}}' }], 0, {{ container.id }}, null, false);">
+                                                                            {{user.onCalluser.username}}
+                                                                            &nbsp;
+                                                                            <span class="fa fa-caret-down" style="font-size: smaller;"></span>
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                {% else %}
+                                    <td>None</td>
+                                {% endif %}
                             </tr>
-                        {% endif %}
+                        {% endfor %}
                     </tbody>
-                {% endfor %}
-            </table>
+                </table>
+            </div>
         {% endif %}
     {% endfor %} <!-- loop for each result end -->
 </div> <!-- Main Div -->
