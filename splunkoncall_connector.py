@@ -368,7 +368,7 @@ class VictoropsConnector(BaseConnector):
         # BaseConnector will create a textual message based off of the summary dictionary
         return action_result.set_status(phantom.APP_SUCCESS)
 
-    def _handle_create_update_incident(self, param):
+    def _handle_update_incident(self, param):
 
         self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
 
@@ -423,6 +423,15 @@ class VictoropsConnector(BaseConnector):
         # BaseConnector will create a textual message based off of the summary dictionary
         return action_result.set_status(phantom.APP_SUCCESS)
 
+    def _handle_create_incident(self, param):
+
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+
+        ret_val = self._handle_update_incident(param)
+
+        self.debug_print("return value of _handle_create_incident action: {0}".format(ret_val))
+        return ret_val
+
     def handle_action(self, param):
 
         ret_val = phantom.APP_SUCCESS
@@ -445,7 +454,7 @@ class VictoropsConnector(BaseConnector):
             ret_val = self._handle_list_incidents(param)
 
         elif action_id == 'create_incident':
-            ret_val = self._handle_create_update_incident(param)
+            ret_val = self._handle_create_incident(param)
 
         elif action_id == 'list_oncalls':
             ret_val = self._handle_list_oncalls(param)
@@ -457,7 +466,7 @@ class VictoropsConnector(BaseConnector):
             ret_val = self._handle_list_routing(param)
 
         elif action_id == 'update_incident':
-            ret_val = self._handle_create_update_incident(param)
+            ret_val = self._handle_update_incident(param)
 
         return ret_val
 
