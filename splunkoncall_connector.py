@@ -32,12 +32,12 @@ class RetVal(tuple):
         return tuple.__new__(RetVal, (val1, val2))
 
 
-class VictoropsConnector(BaseConnector):
+class SplunkoncallConnector(BaseConnector):
 
     def __init__(self):
 
         # Call the BaseConnectors init first
-        super(VictoropsConnector, self).__init__()
+        super(SplunkoncallConnector, self).__init__()
 
         self._state = None
 
@@ -548,7 +548,7 @@ if __name__ == '__main__':
         in_json = json.loads(in_json)
         print(json.dumps(in_json, indent=4))
 
-        connector = VictoropsConnector()
+        connector = SplunkoncallConnector()
         connector.print_progress_message = True
 
         if (session_id is not None):
