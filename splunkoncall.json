@@ -3,7 +3,7 @@
     "name": "Splunk On-Call",
     "description": "Formerly known as VictorOps. This app implements various investigative actions using Splunk On-Call",
     "type": "devops",
-    "product_vendor": "Splunk On-Call",
+    "product_vendor": "Splunk",
     "logo": "logo_splunkoncall.svg",
     "logo_dark": "logo_splunkoncall_dark.svg",
     "product_name": "Splunk On-Call",

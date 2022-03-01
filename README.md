@@ -3,7 +3,7 @@
 
 Publisher: Splunk  
 Connector Version: 2\.1\.1  
-Product Vendor: Splunk On-Call  
+Product Vendor: Splunk
 Product Name: Splunk On-Call  
 Product Version Supported (regex): "\.\*"  
 Minimum Product Version: 5\.1\.0  
