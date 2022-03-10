@@ -1,1 +1,3 @@
 **Unreleased**
+* Added custom view in 'list oncalls' action [PAPP-23432]
+* Fixed the custom view of 'list routing' action [PAPP-24523]

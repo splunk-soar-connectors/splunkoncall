@@ -32,12 +32,12 @@ class RetVal(tuple):
         return tuple.__new__(RetVal, (val1, val2))
 
 
-class VictoropsConnector(BaseConnector):
+class SplunkoncallConnector(BaseConnector):
 
     def __init__(self):
 
         # Call the BaseConnectors init first
-        super(VictoropsConnector, self).__init__()
+        super(SplunkoncallConnector, self).__init__()
 
         self._state = None
 
@@ -213,7 +213,7 @@ class VictoropsConnector(BaseConnector):
         # Add a dictionary that is made up of the most important values from data into the summary
         summary = action_result.update_summary({})
         summary['num_teams'] = len(response)
-
+        self.debug_print("Number of teams fetched in _handle_list_items action: {0}".format(len(response)))
         # Return success, no need to set the message, only the status
         # BaseConnector will create a textual message based off of the summary dictionary
         return action_result.set_status(phantom.APP_SUCCESS)
@@ -242,6 +242,7 @@ class VictoropsConnector(BaseConnector):
             # Add a dictionary that is made up of the most important values from data into the summary
             summary = action_result.update_summary({})
             summary['num_users'] = len(users[0])
+            self.debug_print("Number of users fetched in _handle_list_users action: {0}".format(len(users[0])))
         except Exception:
             return action_result.set_status(phantom.APP_ERROR, "Could not retrieve users")
 
@@ -273,7 +274,7 @@ class VictoropsConnector(BaseConnector):
         # Add a dictionary that is made up of the most important values from data into the summary
         summary = action_result.update_summary({})
         summary['num_incidents'] = len(data)
-
+        self.debug_print("Number of incidents fetched in _handle_list_incidents actions: {0}".format(len(data)))
         # Return success, no need to set the message, only the status
         # BaseConnector will create a textual message based off of the summary dictionary
         return action_result.set_status(phantom.APP_SUCCESS)
@@ -304,7 +305,7 @@ class VictoropsConnector(BaseConnector):
         # Add a dictionary that is made up of the most important values from data into the summary
         summary = action_result.update_summary({})
         summary['num_teams_oncall'] = len(data)
-
+        self.debug_print("Number of teams oncall fetched in _handle_list_oncalls action: {0}".format(len(data)))
         # Return success, no need to set the message, only the status
         # BaseConnector will create a textual message based off of the summary dictionary
         return action_result.set_status(phantom.APP_SUCCESS)
@@ -333,7 +334,7 @@ class VictoropsConnector(BaseConnector):
         # Add a dictionary that is made up of the most important values from data into the summary
         summary = action_result.update_summary({})
         summary['num_policies'] = len(data)
-
+        self.debug_print("Number of policies fetched in _handle_list_policies action: {0}".format(len(data)))
         # Return success, no need to set the message, only the status
         # BaseConnector will create a textual message based off of the summary dictionary
         return action_result.set_status(phantom.APP_SUCCESS)
@@ -362,7 +363,7 @@ class VictoropsConnector(BaseConnector):
         # Add a dictionary that is made up of the most important values from data into the summary
         summary = action_result.update_summary({})
         summary['num_routing_keys'] = len(data)
-
+        self.debug_print("Number of routing keys fetched in _handle_list_routing action: {0}".format(len(data)))
         # Return success, no need to set the message, only the status
         # BaseConnector will create a textual message based off of the summary dictionary
         return action_result.set_status(phantom.APP_SUCCESS)
@@ -401,7 +402,7 @@ class VictoropsConnector(BaseConnector):
             "entity_display_name": param_name,
             "state_message": param_message
         }
-
+        self.debug_print("Endpoint created for _handle_create_update_incident action: {0}".format(endpoint))
         # make rest call
         ret_val, response = self._make_rest_call(endpoint, action_result, params=None, headers=None, data=None, json=body, method="post")
 
@@ -421,6 +422,15 @@ class VictoropsConnector(BaseConnector):
         # Return success, no need to set the message, only the status
         # BaseConnector will create a textual message based off of the summary dictionary
         return action_result.set_status(phantom.APP_SUCCESS)
+
+    def _handle_create_incident(self, param):
+
+        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+
+        ret_val = self._handle_update_incident(param)
+
+        self.debug_print("return value of _handle_create_incident action: {0}".format(ret_val))
+        return ret_val
 
     def handle_action(self, param):
 
@@ -444,7 +454,7 @@ class VictoropsConnector(BaseConnector):
             ret_val = self._handle_list_incidents(param)
 
         elif action_id == 'create_incident':
-            ret_val = self._handle_update_incident(param)
+            ret_val = self._handle_create_incident(param)
 
         elif action_id == 'list_oncalls':
             ret_val = self._handle_list_oncalls(param)
@@ -538,7 +548,7 @@ if __name__ == '__main__':
         in_json = json.loads(in_json)
         print(json.dumps(in_json, indent=4))
 
-        connector = VictoropsConnector()
+        connector = SplunkoncallConnector()
         connector.print_progress_message = True
 
         if (session_id is not None):
