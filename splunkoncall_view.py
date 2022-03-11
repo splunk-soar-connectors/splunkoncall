@@ -41,4 +41,7 @@ def display_list_routing(provides, all_app_runs, context):
                 continue
             results.append(ctx_result)
     # print context
-    return 'display_list_routing.html'
+    if provides == 'list routing':
+        return 'display_list_routing.html'
+    if provides == 'list oncalls':
+        return 'display_oncall_list.html'
