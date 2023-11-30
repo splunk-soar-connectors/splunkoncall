@@ -1,14 +1,14 @@
 [comment]: # "Auto-generated SOAR connector documentation"
-# Splunk On\-Call
+# Splunk On-Call
 
 Publisher: Splunk  
-Connector Version: 2\.2\.0  
+Connector Version: 2.2.1  
 Product Vendor: Splunk  
-Product Name: Splunk On\-Call  
-Product Version Supported (regex): "\.\*"  
-Minimum Product Version: 5\.1\.0  
+Product Name: Splunk On-Call  
+Product Version Supported (regex): ".\*"  
+Minimum Product Version: 5.1.0  
 
-Formerly known as VictorOps\. This app implements various investigative actions using Splunk On\-Call
+Formerly known as VictorOps. This app implements various investigative actions using Splunk On-Call
 
 [comment]: # " File: README.md"
 [comment]: # "Copyright (c) 2018-2022 Splunk Inc."
@@ -39,24 +39,24 @@ default ports used by Splunk SOAR.
 
 
 ### Configuration Variables
-The below configuration variables are required for this Connector to operate.  These variables are specified when configuring a Splunk On\-Call asset in SOAR.
+The below configuration variables are required for this Connector to operate.  These variables are specified when configuring a Splunk On-Call asset in SOAR.
 
 VARIABLE | REQUIRED | TYPE | DESCRIPTION
 -------- | -------- | ---- | -----------
-**api\_id** |  required  | string | API ID from the Splunk On\-Call Portal
-**api\_key** |  required  | password | API Key from the Splunk On\-Call Portal
-**integration\_url** |  optional  | string | Custom REST based Integration URL defined in Splunk On\-Call
+**api_id** |  required  | string | API ID from the Splunk On-Call Portal
+**api_key** |  required  | password | API Key from the Splunk On-Call Portal
+**integration_url** |  optional  | string | Custom REST based Integration URL defined in Splunk On-Call
 
 ### Supported Actions  
 [test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration  
-[list teams](#action-list-teams) - Get list of teams configured on Splunk On\-Call  
-[list users](#action-list-users) - Get list of users configured on Splunk On\-Call  
-[list incidents](#action-list-incidents) - Get list of incidents on Splunk On\-Call  
-[create incident](#action-create-incident) - Create incident on Splunk On\-Call  
-[list oncalls](#action-list-oncalls) - Get all on\-call users/teams on Splunk On\-Call  
-[list policies](#action-list-policies) - Get list of policies configured on Splunk On\-Call  
-[list routing](#action-list-routing) - Get list of routing keys and associated teams on Splunk On\-Call  
-[update incident](#action-update-incident) - Update timeline of existing incident in Splunk On\-Call  
+[list teams](#action-list-teams) - Get list of teams configured on Splunk On-Call  
+[list users](#action-list-users) - Get list of users configured on Splunk On-Call  
+[list incidents](#action-list-incidents) - Get list of incidents on Splunk On-Call  
+[create incident](#action-create-incident) - Create incident on Splunk On-Call  
+[list oncalls](#action-list-oncalls) - Get all on-call users/teams on Splunk On-Call  
+[list policies](#action-list-policies) - Get list of policies configured on Splunk On-Call  
+[list routing](#action-list-routing) - Get list of routing keys and associated teams on Splunk On-Call  
+[update incident](#action-update-incident) - Update timeline of existing incident in Splunk On-Call  
 
 ## action: 'test connectivity'
 Validate the asset configuration for connectivity using supplied configuration
@@ -71,7 +71,7 @@ No parameters are required for this action
 No Output  
 
 ## action: 'list teams'
-Get list of teams configured on Splunk On\-Call
+Get list of teams configured on Splunk On-Call
 
 Type: **investigate**  
 Read only: **True**
@@ -80,24 +80,24 @@ Read only: **True**
 No parameters are required for this action
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.data\.\*\.\_membersUrl | string | 
-action\_result\.data\.\*\.\_policiesUrl | string | 
-action\_result\.data\.\*\.\_selfUrl | string | 
-action\_result\.data\.\*\.isDefaultTeam | boolean | 
-action\_result\.data\.\*\.memberCount | numeric | 
-action\_result\.data\.\*\.name | string | 
-action\_result\.data\.\*\.slug | string | 
-action\_result\.data\.\*\.version | numeric | 
-action\_result\.summary\.num\_teams | numeric | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.data.\*._membersUrl | string |  |   /api-public/v1/team/team-ClhQ5054yCuro0yW/members 
+action_result.data.\*._policiesUrl | string |  |   /api-public/v1/team/team-ClhQ5054yCuro0yW/policies 
+action_result.data.\*._selfUrl | string |  |   /api-public/v1/team/team-ClhQ5054yCuro0yW 
+action_result.data.\*.isDefaultTeam | boolean |  |   True  False 
+action_result.data.\*.memberCount | numeric |  |   1 
+action_result.data.\*.name | string |  |   Example 
+action_result.data.\*.slug | string |  |   team-ClhQ5054yCuro0yW 
+action_result.data.\*.version | numeric |  |   1 
+action_result.summary.num_teams | numeric |  |   2 
+action_result.message | string |  |   Num teams: 2 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'list users'
-Get list of users configured on Splunk On\-Call
+Get list of users configured on Splunk On-Call
 
 Type: **investigate**  
 Read only: **True**
@@ -106,24 +106,24 @@ Read only: **True**
 No parameters are required for this action
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.data\.\*\.\_selfUrl | string | 
-action\_result\.data\.\*\.createdAt | string | 
-action\_result\.data\.\*\.email | string |  `email` 
-action\_result\.data\.\*\.firstName | string |  `email` 
-action\_result\.data\.\*\.lastName | string | 
-action\_result\.data\.\*\.passwordLastUpdated | string | 
-action\_result\.data\.\*\.username | string |  `user name` 
-action\_result\.data\.\*\.verified | boolean | 
-action\_result\.summary\.num\_users | numeric | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.data.\*._selfUrl | string |  |   /api-public/v1/user/hermanedwards 
+action_result.data.\*.createdAt | string |  |   2018-08-15T20:25:39Z 
+action_result.data.\*.email | string |  `email`  |   herman@test.us 
+action_result.data.\*.firstName | string |  `email`  |   Herman 
+action_result.data.\*.lastName | string |  |   Edwards 
+action_result.data.\*.passwordLastUpdated | string |  |   2018-08-15T20:25:39Z 
+action_result.data.\*.username | string |  `user name`  |   hermanedwards 
+action_result.data.\*.verified | boolean |  |   True  False 
+action_result.summary.num_users | numeric |  |   4 
+action_result.message | string |  |   Num users: 4 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'list incidents'
-Get list of incidents on Splunk On\-Call
+Get list of incidents on Splunk On-Call
 
 Type: **investigate**  
 Read only: **True**
@@ -132,38 +132,38 @@ Read only: **True**
 No parameters are required for this action
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.data\.\*\.alertCount | numeric | 
-action\_result\.data\.\*\.currentPhase | string | 
-action\_result\.data\.\*\.entityDisplayName | string | 
-action\_result\.data\.\*\.entityId | string |  `splunk on call id` 
-action\_result\.data\.\*\.entityState | string | 
-action\_result\.data\.\*\.entityType | string | 
-action\_result\.data\.\*\.host | string | 
-action\_result\.data\.\*\.incidentNumber | string | 
-action\_result\.data\.\*\.lastAlertId | string | 
-action\_result\.data\.\*\.lastAlertTime | string | 
-action\_result\.data\.\*\.pagedPolicies\.\*\.policy\.name | string | 
-action\_result\.data\.\*\.pagedPolicies\.\*\.policy\.slug | string | 
-action\_result\.data\.\*\.pagedPolicies\.\*\.team\.name | string | 
-action\_result\.data\.\*\.pagedPolicies\.\*\.team\.slug | string | 
-action\_result\.data\.\*\.pagedTeams | string | 
-action\_result\.data\.\*\.routingKey | string | 
-action\_result\.data\.\*\.service | string | 
-action\_result\.data\.\*\.startTime | string | 
-action\_result\.data\.\*\.transitions\.\*\.at | string | 
-action\_result\.data\.\*\.transitions\.\*\.by | string | 
-action\_result\.data\.\*\.transitions\.\*\.manually | boolean | 
-action\_result\.data\.\*\.transitions\.\*\.name | string | 
-action\_result\.summary\.num\_incidents | numeric | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.data.\*.alertCount | numeric |  |   1 
+action_result.data.\*.currentPhase | string |  |   UNACKED 
+action_result.data.\*.entityDisplayName | string |  |   SOS 
+action_result.data.\*.entityId | string |  `splunk on call id`  |   robots2 
+action_result.data.\*.entityState | string |  |   CRITICAL 
+action_result.data.\*.entityType | string |  |   SERVICE 
+action_result.data.\*.host | string |  |  
+action_result.data.\*.incidentNumber | string |  |   7 
+action_result.data.\*.lastAlertId | string |  |   8e97eae5-459e-4df0-b7fa-f93782127ec8 
+action_result.data.\*.lastAlertTime | string |  |   2018-08-23T19:29:05Z 
+action_result.data.\*.pagedPolicies.\*.policy.name | string |  |   newpolicy 
+action_result.data.\*.pagedPolicies.\*.policy.slug | string |  |   pol-TJyGjKj0Z42l8wtB 
+action_result.data.\*.pagedPolicies.\*.team.name | string |  |   Example 
+action_result.data.\*.pagedPolicies.\*.team.slug | string |  |   team-PSXRfERISL1MzGCh 
+action_result.data.\*.pagedTeams | string |  |   team-PSXRfERISL1MzGCh 
+action_result.data.\*.routingKey | string |  |   routingdefault 
+action_result.data.\*.service | string |  |   SOS 
+action_result.data.\*.startTime | string |  |   2018-08-23T19:29:05Z 
+action_result.data.\*.transitions.\*.at | string |  |   2018-08-23T03:24:22Z 
+action_result.data.\*.transitions.\*.by | string |  |   hedwards 
+action_result.data.\*.transitions.\*.manually | boolean |  |   True  False 
+action_result.data.\*.transitions.\*.name | string |  |   ACKED 
+action_result.summary.num_incidents | numeric |  |   0  7 
+action_result.message | string |  |   Num incidents: 0  Num incidents: 7 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'create incident'
-Create incident on Splunk On\-Call
+Create incident on Splunk On-Call
 
 Type: **generic**  
 Read only: **False**
@@ -171,32 +171,32 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**routing\_key** |  optional  | Name of Routing key defined in Splunk On\-Call\. If left blank, default route will be used | string | 
-**message\_type** |  required  | Behavior of the alert\. CRITICAL\: Triggers an incident, WARNING\: May trigger an incident, depending on your settings | string | 
-**entity\_id** |  optional  | ID of the Incident\. This field is the identity of the incident and must remain the same throughout the life\-cycle of an incident\. If no entity\_id is included, Splunk On\-Call will generate a random string | string |  `splunk on call id` 
-**entity\_display\_name** |  optional  | Display Name in the UI and Notifications\. This field allows you to give custom, human\-friendly, summary of your incidents without affecting the life\-cycle workflow | string |  `splunk on call display name` 
-**state\_message** |  optional  | Verbose message field\. This field has a high character limit and is intended for a long, verbose, explanation of the problem\. This field will be included in notifications \(full content in email, truncated version in push/phone/SMS notifications\) Any URL links included in this field will be rendered as clickable links in email notifications | string | 
-**state\_start\_time** |  optional  | Time this issue began \[Number\] \(Linux/Unix time\)\. The time this entity entered its current state \(seconds since epoch\)\. Defaults to the time alert is received | numeric | 
+**routing_key** |  optional  | Name of Routing key defined in Splunk On-Call. If left blank, default route will be used | string | 
+**message_type** |  required  | Behavior of the alert. CRITICAL: Triggers an incident, WARNING: May trigger an incident, depending on your settings | string | 
+**entity_id** |  optional  | ID of the Incident. This field is the identity of the incident and must remain the same throughout the life-cycle of an incident. If no entity_id is included, Splunk On-Call will generate a random string | string |  `splunk on call id` 
+**entity_display_name** |  optional  | Display Name in the UI and Notifications. This field allows you to give custom, human-friendly, summary of your incidents without affecting the life-cycle workflow | string |  `splunk on call display name` 
+**state_message** |  optional  | Verbose message field. This field has a high character limit and is intended for a long, verbose, explanation of the problem. This field will be included in notifications (full content in email, truncated version in push/phone/SMS notifications) Any URL links included in this field will be rendered as clickable links in email notifications | string | 
+**state_start_time** |  optional  | Time this issue began [Number] (Linux/Unix time). The time this entity entered its current state (seconds since epoch). Defaults to the time alert is received | numeric | 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.parameter\.entity\_display\_name | string |  `splunk on call display name` 
-action\_result\.parameter\.entity\_id | string |  `splunk on call id` 
-action\_result\.parameter\.message\_type | string | 
-action\_result\.parameter\.routing\_key | string | 
-action\_result\.parameter\.state\_message | string | 
-action\_result\.parameter\.state\_start\_time | numeric | 
-action\_result\.data\.\*\.entity\_id | string |  `splunk on call id` 
-action\_result\.data\.\*\.result | string | 
-action\_result\.summary\.entity\_id | string |  `splunk on call id` 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.entity_display_name | string |  `splunk on call display name`  |   robots taking over 
+action_result.parameter.entity_id | string |  `splunk on call id`  |   robots taking over id 
+action_result.parameter.message_type | string |  |   CRITICAL 
+action_result.parameter.routing_key | string |  |   example 
+action_result.parameter.state_message | string |  |   hello 
+action_result.parameter.state_start_time | numeric |  |   1534994534 
+action_result.data.\*.entity_id | string |  `splunk on call id`  |   robots taking over id 
+action_result.data.\*.result | string |  |   success 
+action_result.summary.entity_id | string |  `splunk on call id`  |   robots taking over id 
+action_result.message | string |  |   Entity id: robots taking over id 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'list oncalls'
-Get all on\-call users/teams on Splunk On\-Call
+Get all on-call users/teams on Splunk On-Call
 
 Type: **investigate**  
 Read only: **True**
@@ -205,21 +205,21 @@ Read only: **True**
 No parameters are required for this action
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.data\.\*\.oncallNow\.\*\.escalationPolicy\.name | string | 
-action\_result\.data\.\*\.oncallNow\.\*\.escalationPolicy\.slug | string | 
-action\_result\.data\.\*\.oncallNow\.\*\.users\.\*\.onCalluser\.username | string |  `user name` 
-action\_result\.data\.\*\.team\.name | string | 
-action\_result\.data\.\*\.team\.slug | string | 
-action\_result\.summary\.num\_teams\_oncall | numeric | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.data.\*.oncallNow.\*.escalationPolicy.name | string |  |   Example 
+action_result.data.\*.oncallNow.\*.escalationPolicy.slug | string |  |   team-ClhQ5054yCuro0yW 
+action_result.data.\*.oncallNow.\*.users.\*.onCalluser.username | string |  `user name`  |   hermanedwards 
+action_result.data.\*.team.name | string |  |   Example 
+action_result.data.\*.team.slug | string |  |   team-ClhQ5054yCuro0yW 
+action_result.summary.num_teams_oncall | numeric |  |   2 
+action_result.message | string |  |   Num teams oncall: 2 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'list policies'
-Get list of policies configured on Splunk On\-Call
+Get list of policies configured on Splunk On-Call
 
 Type: **investigate**  
 Read only: **True**
@@ -228,20 +228,20 @@ Read only: **True**
 No parameters are required for this action
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.data\.\*\.policy\.name | string | 
-action\_result\.data\.\*\.policy\.slug | string | 
-action\_result\.data\.\*\.team\.name | string | 
-action\_result\.data\.\*\.team\.slug | string | 
-action\_result\.summary\.num\_policies | numeric | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.data.\*.policy.name | string |  |   policy11 
+action_result.data.\*.policy.slug | string |  |   pol-UJJQLazeWQmJWa6c 
+action_result.data.\*.team.name | string |  |   team11111 
+action_result.data.\*.team.slug | string |  |   team-qMw1DMLn56oCh1Yw 
+action_result.summary.num_policies | numeric |  |   2 
+action_result.message | string |  |   Num policies: 2 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'list routing'
-Get list of routing keys and associated teams on Splunk On\-Call
+Get list of routing keys and associated teams on Splunk On-Call
 
 Type: **investigate**  
 Read only: **True**
@@ -250,21 +250,21 @@ Read only: **True**
 No parameters are required for this action
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.data\.\*\.isDefault | boolean | 
-action\_result\.data\.\*\.routingKey | string | 
-action\_result\.data\.\*\.targets\.\*\.\_teamUrl | string | 
-action\_result\.data\.\*\.targets\.\*\.policyName | string | 
-action\_result\.data\.\*\.targets\.\*\.policySlug | string | 
-action\_result\.summary\.num\_routing\_keys | numeric | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.data.\*.isDefault | boolean |  |   True  False 
+action_result.data.\*.routingKey | string |  |   key2222 
+action_result.data.\*.targets.\*._teamUrl | string |  |   /api-public/v1/team/team-ClhQ5054yCuro0yW 
+action_result.data.\*.targets.\*.policyName | string |  |   Example 
+action_result.data.\*.targets.\*.policySlug | string |  |   team-ClhQ5054yCuro0yW 
+action_result.summary.num_routing_keys | numeric |  |   2 
+action_result.message | string |  |   Num routing keys: 2 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'update incident'
-Update timeline of existing incident in Splunk On\-Call
+Update timeline of existing incident in Splunk On-Call
 
 Type: **generic**  
 Read only: **False**
@@ -272,24 +272,24 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**routing\_key** |  optional  | Name of Routing key defined in Splunk On\-Call\. If left blank, default route will be used | string | 
-**message\_type** |  required  | Behavior of the alert\. INFO\: Creates a timeline event but does not trigger an incident\. RECOVERY\: Resolves an incident | string | 
-**entity\_id** |  optional  | The entity\_id of an existing incident\. If not included, an update will be posted on timeline | string |  `splunk on call id` 
-**entity\_display\_name** |  optional  | Display Name in the UI and Notifications\. This field allows you to give custom, human\-friendly, summary of your incidents without affecting the life\-cycle workflow | string |  `splunk on call display name` 
-**state\_message** |  optional  | Verbose message field\. This field has a high character limit and is intended for a long, verbose, explanation of the problem\. This field will be included in notifications \(full content in email, truncated version in push/phone/SMS notifications\) Any URL links included in this field will be rendered as clickable links in email notifications | string | 
+**routing_key** |  optional  | Name of Routing key defined in Splunk On-Call. If left blank, default route will be used | string | 
+**message_type** |  required  | Behavior of the alert. INFO: Creates a timeline event but does not trigger an incident. RECOVERY: Resolves an incident | string | 
+**entity_id** |  optional  | The entity_id of an existing incident. If not included, an update will be posted on timeline | string |  `splunk on call id` 
+**entity_display_name** |  optional  | Display Name in the UI and Notifications. This field allows you to give custom, human-friendly, summary of your incidents without affecting the life-cycle workflow | string |  `splunk on call display name` 
+**state_message** |  optional  | Verbose message field. This field has a high character limit and is intended for a long, verbose, explanation of the problem. This field will be included in notifications (full content in email, truncated version in push/phone/SMS notifications) Any URL links included in this field will be rendered as clickable links in email notifications | string | 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.parameter\.entity\_display\_name | string |  `splunk on call display name` 
-action\_result\.parameter\.entity\_id | string |  `splunk on call id` 
-action\_result\.parameter\.message\_type | string | 
-action\_result\.parameter\.routing\_key | string | 
-action\_result\.parameter\.state\_message | string | 
-action\_result\.data\.\*\.entity\_id | string |  `splunk on call id` 
-action\_result\.data\.\*\.result | string | 
-action\_result\.summary\.entity\_id | string |  `splunk on call id` 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric | 
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.entity_display_name | string |  `splunk on call display name`  |   robots taking over 
+action_result.parameter.entity_id | string |  `splunk on call id`  |   robots taking over id 
+action_result.parameter.message_type | string |  |   INFO 
+action_result.parameter.routing_key | string |  |   example 
+action_result.parameter.state_message | string |  |   we're coming for you 
+action_result.data.\*.entity_id | string |  `splunk on call id`  |   robots taking over id 
+action_result.data.\*.result | string |  |   success 
+action_result.summary.entity_id | string |  `splunk on call id`  |   robots taking over id 
+action_result.message | string |  |   Entity id: robots taking over id 
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1 
