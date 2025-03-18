@@ -9,7 +9,7 @@
     "product_name": "Splunk On-Call",
     "product_version_regex": ".*",
     "publisher": "Splunk",
-    "license": "Copyright (c) 2018-2024 Splunk Inc.",
+    "license": "Copyright (c) 2018-2025 Splunk Inc.",
     "python_version": "3",
     "fips_compliant": true,
     "latest_tested_versions": [
