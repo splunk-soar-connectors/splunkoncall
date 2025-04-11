@@ -1,7 +1,7 @@
 # Splunk On-Call
 
 Publisher: Splunk \
-Connector Version: 2.2.1 \
+Connector Version: 2.2.2 \
 Product Vendor: Splunk \
 Product Name: Splunk On-Call \
 Minimum Product Version: 5.1.0
