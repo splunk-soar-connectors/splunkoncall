@@ -10,10 +10,7 @@
     "product_version_regex": ".*",
     "publisher": "Splunk",
     "license": "Copyright (c) 2018-2025 Splunk Inc.",
-    "python_version": [
-        "3.9",
-        "3.13"
-    ],
+    "python_version": "3.9, 3.13",
     "fips_compliant": true,
     "latest_tested_versions": [
         "Cloud. API v1 tested on 2021-02-25"
