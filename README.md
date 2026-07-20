@@ -1,9 +1,9 @@
 # Splunk On-Call
 
-Publisher: Splunk \
-Connector Version: 2.2.4 \
-Product Vendor: Splunk \
-Product Name: Splunk On-Call \
+Publisher: Splunk <br>
+Connector Version: 2.2.4 <br>
+Product Vendor: Splunk <br>
+Product Name: Splunk On-Call <br>
 Minimum Product Version: 5.1.0
 
 Formerly known as VictorOps. This app implements various investigative actions using Splunk On-Call
@@ -41,21 +41,21 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 
 ### Supported Actions
 
-[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration \
-[list teams](#action-list-teams) - Get list of teams configured on Splunk On-Call \
-[list users](#action-list-users) - Get list of users configured on Splunk On-Call \
-[list incidents](#action-list-incidents) - Get list of incidents on Splunk On-Call \
-[create incident](#action-create-incident) - Create incident on Splunk On-Call \
-[list oncalls](#action-list-oncalls) - Get all on-call users/teams on Splunk On-Call \
-[list policies](#action-list-policies) - Get list of policies configured on Splunk On-Call \
-[list routing](#action-list-routing) - Get list of routing keys and associated teams on Splunk On-Call \
+[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration <br>
+[list teams](#action-list-teams) - Get list of teams configured on Splunk On-Call <br>
+[list users](#action-list-users) - Get list of users configured on Splunk On-Call <br>
+[list incidents](#action-list-incidents) - Get list of incidents on Splunk On-Call <br>
+[create incident](#action-create-incident) - Create incident on Splunk On-Call <br>
+[list oncalls](#action-list-oncalls) - Get all on-call users/teams on Splunk On-Call <br>
+[list policies](#action-list-policies) - Get list of policies configured on Splunk On-Call <br>
+[list routing](#action-list-routing) - Get list of routing keys and associated teams on Splunk On-Call <br>
 [update incident](#action-update-incident) - Update timeline of existing incident in Splunk On-Call
 
 ## action: 'test connectivity'
 
 Validate the asset configuration for connectivity using supplied configuration
 
-Type: **test** \
+Type: **test** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -70,7 +70,7 @@ No Output
 
 Get list of teams configured on Splunk On-Call
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -99,7 +99,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Get list of users configured on Splunk On-Call
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -128,7 +128,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Get list of incidents on Splunk On-Call
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -171,7 +171,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Create incident on Splunk On-Call
 
-Type: **generic** \
+Type: **generic** <br>
 Read only: **False**
 
 #### Action Parameters
@@ -207,7 +207,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Get all on-call users/teams on Splunk On-Call
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -233,7 +233,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Get list of policies configured on Splunk On-Call
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -258,7 +258,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Get list of routing keys and associated teams on Splunk On-Call
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -284,7 +284,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Update timeline of existing incident in Splunk On-Call
 
-Type: **generic** \
+Type: **generic** <br>
 Read only: **False**
 
 #### Action Parameters
@@ -318,7 +318,7 @@ ______________________________________________________________________
 
 Auto-generated Splunk SOAR Connector documentation.
 
-Copyright 2025 Splunk Inc.
+Copyright 2026 Splunk Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
