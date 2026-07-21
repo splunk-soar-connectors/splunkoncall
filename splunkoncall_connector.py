@@ -153,7 +153,7 @@ class SplunkoncallConnector(BaseConnector):
 
         self.save_progress("Connecting to /v1/team endpoint to test connectivity")
         # make rest call
-        ret_val, response = self._make_rest_call("/v1/team", action_result, params=None, headers=None)
+        ret_val, _response = self._make_rest_call("/v1/team", action_result, params=None, headers=None)
 
         if phantom.is_fail(ret_val):
             self.save_progress("Test Connectivity Failed")
@@ -166,7 +166,7 @@ class SplunkoncallConnector(BaseConnector):
             self.save_progress("Connecting to integration_url to test connectivity")
             body = {"message_type": "INFO", "state_message": "Test integration_url connectivity"}
             # make rest call
-            ret_val, response = self._make_rest_call(self._integration_url, action_result, params=None, headers=None, json=body, method="post")
+            ret_val, _response = self._make_rest_call(self._integration_url, action_result, params=None, headers=None, json=body, method="post")
             if phantom.is_fail(ret_val):
                 self.save_progress("Test Connectivity for integration_url Failed")
                 return action_result.get_status()
