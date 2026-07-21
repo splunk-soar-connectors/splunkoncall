@@ -56,7 +56,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 Validate the asset configuration for connectivity using supplied configuration
 
 Type: **test** <br>
-Read only: **True**
+Read only: **False**
 
 #### Action Parameters
 
