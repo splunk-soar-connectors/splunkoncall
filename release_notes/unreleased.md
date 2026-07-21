@@ -1,3 +1,1 @@
 **Unreleased**
-
-* Marks test connectivity as mutating when it posts an event to a configured integration URL.
