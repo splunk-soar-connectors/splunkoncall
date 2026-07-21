@@ -47,7 +47,7 @@
             "identifier": "test_connectivity",
             "description": "Validate the asset configuration for connectivity using supplied configuration",
             "type": "test",
-            "read_only": true,
+            "read_only": false,
             "parameters": {},
             "output": [],
             "versions": "EQ(*)"
