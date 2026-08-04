@@ -4,3 +4,4 @@
 * Keep public API credentials off custom integration endpoint requests and require HTTPS integration URLs.
 * Validate routing keys before appending them to integration endpoint URLs.
 * Reject incident message types that do not match the selected create or update action.
+* Handle malformed incident endpoint responses without raising an unhandled exception after delivery.

@@ -398,15 +398,19 @@ class SplunkoncallConnector(BaseConnector):
         if phantom.is_fail(ret_val):
             return action_result.get_status()
 
+        if not isinstance(response, dict) or response.get("result") not in {"success", "failure"}:
+            return action_result.set_status(phantom.APP_ERROR, "Unexpected response from the integration endpoint")
+
         # Add the response into the data section
         action_result.add_data(response)
 
-        if response["result"] == "failure":
+        if response.get("result") == "failure":
             return action_result.set_status(phantom.APP_ERROR, response.get("message", UPDATE_INCIDENT_ERROR))
 
         # Add a dictionary that is made up of the most important values from data into the summary
         summary = action_result.update_summary({})
-        summary["entity_id"] = response["entity_id"]
+        if response.get("entity_id") is not None:
+            summary["entity_id"] = response["entity_id"]
 
         # Return success, no need to set the message, only the status
         # BaseConnector will create a textual message based off of the summary dictionary
