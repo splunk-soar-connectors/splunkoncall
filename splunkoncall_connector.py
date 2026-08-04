@@ -16,6 +16,7 @@
 #
 # Phantom App imports
 import json
+import re
 from urllib.parse import urlparse
 
 import phantom.app as phantom
@@ -356,8 +357,12 @@ class SplunkoncallConnector(BaseConnector):
         if self._integration_url:
             routing = param.get("routing_key", None)
             if routing:
-                routing = "/" + routing.strip("/")
-                endpoint = self._integration_url + routing
+                if not re.fullmatch(r"[A-Za-z0-9_-]+", routing):
+                    return action_result.set_status(
+                        phantom.APP_ERROR,
+                        "Invalid routing_key: only letters, digits, hyphens, and underscores are allowed",
+                    )
+                endpoint = self._integration_url + "/" + routing
             else:
                 endpoint = self._integration_url
         else:
