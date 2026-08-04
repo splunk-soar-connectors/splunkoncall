@@ -143,7 +143,15 @@ class SplunkoncallConnector(BaseConnector):
             request_headers = {"Accept": "application/json"}
 
         try:
-            r = request_func(url, data=data, headers=request_headers, json=json, verify=config.get("verify_server_cert", True), params=params)
+            r = request_func(
+                url,
+                data=data,
+                headers=request_headers,
+                json=json,
+                verify=config.get("verify_server_cert", True),
+                params=params,
+                timeout=DEFAULT_TIMEOUT,
+            )
         except Exception as e:
             return RetVal(action_result.set_status(phantom.APP_ERROR, f"Error Connecting to server. Details: {e!s}"), resp_json)
 

@@ -6,3 +6,4 @@
 * Reject incident message types that do not match the selected create or update action.
 * Handle malformed incident endpoint responses without raising an unhandled exception after delivery.
 * Return a clear error when the list routing response does not contain a routing key list.
+* Apply a 30-second timeout to Splunk On-Call API and integration endpoint requests.
