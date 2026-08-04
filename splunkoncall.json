@@ -37,7 +37,7 @@
         "integration_url": {
             "description": "Custom REST based Integration URL defined in Splunk On-Call",
             "verbose": "Populate this field if you plan to create, update, or resolve incidents. i.e https://alert.victorops.com/integrations/generic/20131114/alert/84d34810-7b78-4cb9-91a4-3425aeecce68.",
-            "data_type": "string",
+            "data_type": "password",
             "order": 2
         }
     },

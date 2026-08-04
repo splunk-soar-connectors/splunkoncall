@@ -377,7 +377,7 @@ class SplunkoncallConnector(BaseConnector):
             "entity_display_name": param_name,
             "state_message": param_message,
         }
-        self.debug_print(f"Endpoint created for _handle_create_update_incident action: {endpoint}")
+        self.debug_print("Endpoint created for _handle_create_update_incident action")
         # make rest call
         ret_val, response = self._make_rest_call(endpoint, action_result, params=None, headers=None, data=None, json=body, method="post")
 
