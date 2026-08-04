@@ -26,7 +26,7 @@ from phantom.action_result import ActionResult
 from phantom.base_connector import BaseConnector
 
 # Usage of the consts file is recommended
-from splunkoncall_consts import DEFAULT_TIMEOUT, INTEGRATION_URL_MISSING, UPDATE_INCIDENT_ERROR
+from splunkoncall_consts import DEFAULT_TIMEOUT, INTEGRATION_URL_MISSING, UPDATE_INCIDENT_ERROR, VALID_MESSAGE_TYPES
 
 
 class RetVal(tuple):
@@ -352,6 +352,15 @@ class SplunkoncallConnector(BaseConnector):
         # Add an action result object to self (BaseConnector) to represent the action for this param
         action_result = self.add_action_result(ActionResult(dict(param)))
 
+        action_identifier = self.get_action_identifier()
+        message_type = param.get("message_type")
+        allowed_message_types = VALID_MESSAGE_TYPES[action_identifier]
+        if message_type not in allowed_message_types:
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                f"Invalid message_type '{message_type}' for {action_identifier}. Allowed values: {', '.join(allowed_message_types)}",
+            )
+
         # gather REST integration URL as it is unique per customer
         endpoint = ""
         if self._integration_url:
@@ -370,14 +379,13 @@ class SplunkoncallConnector(BaseConnector):
             summary["message"] = INTEGRATION_URL_MISSING
             return action_result.set_status(phantom.APP_ERROR, INTEGRATION_URL_MISSING)
 
-        param_type = param.get("message_type")
         param_name = param.get("entity_display_name")
         param_message = param.get("state_message")
         param_entity_id = param.get("entity_id")
         param_time = param.get("state_start_time", "")
 
         body = {
-            "message_type": param_type,
+            "message_type": message_type,
             "state_start_time": param_time,
             "entity_id": param_entity_id,
             "entity_display_name": param_name,

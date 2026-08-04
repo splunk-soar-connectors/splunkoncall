@@ -17,4 +17,8 @@
 # Define your constants here
 INTEGRATION_URL_MISSING = "Integration URL required in asset configuration"
 UPDATE_INCIDENT_ERROR = "Error updating incident"
+VALID_MESSAGE_TYPES = {
+    "create_incident": ("CRITICAL", "WARNING"),
+    "update_incident": ("INFO", "RECOVERY"),
+}
 DEFAULT_TIMEOUT = 30
