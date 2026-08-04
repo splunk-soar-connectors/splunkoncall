@@ -16,6 +16,7 @@
 #
 # Phantom App imports
 import json
+from urllib.parse import urlparse
 
 import phantom.app as phantom
 import requests
@@ -130,18 +131,18 @@ class SplunkoncallConnector(BaseConnector):
         except AttributeError:
             return RetVal(action_result.set_status(phantom.APP_ERROR, f"Invalid method: {method}"), resp_json)
 
-        # Create a URL to connect to
-        url = ""
-        if "https://" in endpoint:
-            url = endpoint
-            # special handling for alerts API that uses a different request format
-        else:
+        if endpoint.startswith("/"):
             url = "https://api.victorops.com/api-public" + endpoint
-            # standard request format
+            request_headers = {"X-VO-Api-Id": self._api_id, "X-VO-Api-Key": self._api_key, "Accept": "application/json"}
+        else:
+            parsed_endpoint = urlparse(endpoint)
+            if parsed_endpoint.scheme.lower() != "https" or not parsed_endpoint.hostname:
+                return RetVal(action_result.set_status(phantom.APP_ERROR, "Integration URL must be a valid HTTPS URL"), resp_json)
+            url = endpoint
+            request_headers = {"Accept": "application/json"}
 
-        auth_headers = {"X-VO-Api-Id": self._api_id, "X-VO-Api-Key": self._api_key, "Accept": "application/json"}
         try:
-            r = request_func(url, data=data, headers=auth_headers, json=json, verify=config.get("verify_server_cert", True), params=params)
+            r = request_func(url, data=data, headers=request_headers, json=json, verify=config.get("verify_server_cert", True), params=params)
         except Exception as e:
             return RetVal(action_result.set_status(phantom.APP_ERROR, f"Error Connecting to server. Details: {e!s}"), resp_json)
 
