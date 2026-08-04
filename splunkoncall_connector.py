@@ -333,8 +333,11 @@ class SplunkoncallConnector(BaseConnector):
         if phantom.is_fail(ret_val):
             return action_result.get_status()
 
+        if not isinstance(response, dict) or not isinstance(response.get("routingKeys"), list):
+            return action_result.set_status(phantom.APP_ERROR, "Unexpected response from Splunk On-Call: routingKeys must be a list")
+
         # Add the response into the data section
-        data = response.get("routingKeys")
+        data = response["routingKeys"]
         for item in data:
             action_result.add_data(item)
 
