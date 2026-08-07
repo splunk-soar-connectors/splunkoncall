@@ -16,6 +16,8 @@
 #
 # Phantom App imports
 import json
+import re
+from urllib.parse import urlparse
 
 import phantom.app as phantom
 import requests
@@ -24,7 +26,7 @@ from phantom.action_result import ActionResult
 from phantom.base_connector import BaseConnector
 
 # Usage of the consts file is recommended
-from splunkoncall_consts import DEFAULT_TIMEOUT, INTEGRATION_URL_MISSING, UPDATE_INCIDENT_ERROR
+from splunkoncall_consts import DEFAULT_TIMEOUT, INTEGRATION_URL_MISSING, UPDATE_INCIDENT_ERROR, VALID_MESSAGE_TYPES
 
 
 class RetVal(tuple):
@@ -130,18 +132,26 @@ class SplunkoncallConnector(BaseConnector):
         except AttributeError:
             return RetVal(action_result.set_status(phantom.APP_ERROR, f"Invalid method: {method}"), resp_json)
 
-        # Create a URL to connect to
-        url = ""
-        if "https://" in endpoint:
-            url = endpoint
-            # special handling for alerts API that uses a different request format
-        else:
+        if endpoint.startswith("/"):
             url = "https://api.victorops.com/api-public" + endpoint
-            # standard request format
+            request_headers = {"X-VO-Api-Id": self._api_id, "X-VO-Api-Key": self._api_key, "Accept": "application/json"}
+        else:
+            parsed_endpoint = urlparse(endpoint)
+            if parsed_endpoint.scheme.lower() != "https" or not parsed_endpoint.hostname:
+                return RetVal(action_result.set_status(phantom.APP_ERROR, "Integration URL must be a valid HTTPS URL"), resp_json)
+            url = endpoint
+            request_headers = {"Accept": "application/json"}
 
-        auth_headers = {"X-VO-Api-Id": self._api_id, "X-VO-Api-Key": self._api_key, "Accept": "application/json"}
         try:
-            r = request_func(url, data=data, headers=auth_headers, json=json, verify=config.get("verify_server_cert", True), params=params)
+            r = request_func(
+                url,
+                data=data,
+                headers=request_headers,
+                json=json,
+                verify=config.get("verify_server_cert", True),
+                params=params,
+                timeout=DEFAULT_TIMEOUT,
+            )
         except Exception as e:
             return RetVal(action_result.set_status(phantom.APP_ERROR, f"Error Connecting to server. Details: {e!s}"), resp_json)
 
@@ -331,8 +341,11 @@ class SplunkoncallConnector(BaseConnector):
         if phantom.is_fail(ret_val):
             return action_result.get_status()
 
+        if not isinstance(response, dict) or not isinstance(response.get("routingKeys"), list):
+            return action_result.set_status(phantom.APP_ERROR, "Unexpected response from Splunk On-Call: routingKeys must be a list")
+
         # Add the response into the data section
-        data = response.get("routingKeys")
+        data = response["routingKeys"]
         for item in data:
             action_result.add_data(item)
 
@@ -350,13 +363,26 @@ class SplunkoncallConnector(BaseConnector):
         # Add an action result object to self (BaseConnector) to represent the action for this param
         action_result = self.add_action_result(ActionResult(dict(param)))
 
+        action_identifier = self.get_action_identifier()
+        message_type = param.get("message_type")
+        allowed_message_types = VALID_MESSAGE_TYPES[action_identifier]
+        if message_type not in allowed_message_types:
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                f"Invalid message_type '{message_type}' for {action_identifier}. Allowed values: {', '.join(allowed_message_types)}",
+            )
+
         # gather REST integration URL as it is unique per customer
         endpoint = ""
         if self._integration_url:
             routing = param.get("routing_key", None)
             if routing:
-                routing = "/" + routing.strip("/")
-                endpoint = self._integration_url + routing
+                if not re.fullmatch(r"[A-Za-z0-9_-]+", routing):
+                    return action_result.set_status(
+                        phantom.APP_ERROR,
+                        "Invalid routing_key: only letters, digits, hyphens, and underscores are allowed",
+                    )
+                endpoint = self._integration_url + "/" + routing
             else:
                 endpoint = self._integration_url
         else:
@@ -364,35 +390,38 @@ class SplunkoncallConnector(BaseConnector):
             summary["message"] = INTEGRATION_URL_MISSING
             return action_result.set_status(phantom.APP_ERROR, INTEGRATION_URL_MISSING)
 
-        param_type = param.get("message_type")
         param_name = param.get("entity_display_name")
         param_message = param.get("state_message")
         param_entity_id = param.get("entity_id")
         param_time = param.get("state_start_time", "")
 
         body = {
-            "message_type": param_type,
+            "message_type": message_type,
             "state_start_time": param_time,
             "entity_id": param_entity_id,
             "entity_display_name": param_name,
             "state_message": param_message,
         }
-        self.debug_print(f"Endpoint created for _handle_create_update_incident action: {endpoint}")
+        self.debug_print("Endpoint created for _handle_create_update_incident action")
         # make rest call
         ret_val, response = self._make_rest_call(endpoint, action_result, params=None, headers=None, data=None, json=body, method="post")
 
         if phantom.is_fail(ret_val):
             return action_result.get_status()
 
+        if not isinstance(response, dict) or response.get("result") not in {"success", "failure"}:
+            return action_result.set_status(phantom.APP_ERROR, "Unexpected response from the integration endpoint")
+
         # Add the response into the data section
         action_result.add_data(response)
 
-        if response["result"] == "failure":
+        if response.get("result") == "failure":
             return action_result.set_status(phantom.APP_ERROR, response.get("message", UPDATE_INCIDENT_ERROR))
 
         # Add a dictionary that is made up of the most important values from data into the summary
         summary = action_result.update_summary({})
-        summary["entity_id"] = response["entity_id"]
+        if response.get("entity_id") is not None:
+            summary["entity_id"] = response["entity_id"]
 
         # Return success, no need to set the message, only the status
         # BaseConnector will create a textual message based off of the summary dictionary

@@ -37,7 +37,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 -------- | -------- | ---- | -----------
 **api_id** | required | string | API ID from the Splunk On-Call Portal |
 **api_key** | required | password | API Key from the Splunk On-Call Portal |
-**integration_url** | optional | string | Custom REST based Integration URL defined in Splunk On-Call |
+**integration_url** | optional | password | Custom REST based Integration URL defined in Splunk On-Call |
 
 ### Supported Actions
 
